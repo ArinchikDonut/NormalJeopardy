@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jeopardy – Presidents & Monarchs</title>
+
+<style>
+
+/* ===== PAGE ===== */
+
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+body{
+    font-family:Segoe UI, Arial, sans-serif;
+    background:radial-gradient(circle at top,#0B1E3B,#08162B);
+    color:white;
+    min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+
+.header{
+    text-align:center;
+    padding:20px;
+    font-size:36px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+/* ===== BOARD ===== */
+
+.board{
+    width:96vw;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+}
+
+.category{
+    background:#091A36;
+    padding:15px;
+    text-align:center;
+    font-weight:bold;
+    border-bottom:2px solid #C9A646;
+}
+
+.cell{
+    background:#123A7A;
+    padding:38px 10px;
+    text-align:center;
+    font-size:28px;
+    color:#FFD54A;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.cell:hover{
+    background:#1B4FA3;
+    transform:scale(1.03);
+}
+
+.played{
+    background:#091A36 !important;
+    color:#6F86B6;
+    cursor:default;
+}
+
+/* ===== SCOREBOARD ===== */
+
+.scoreboard{
+    margin-top:20px;
+    background:#091A36;
+    padding:15px;
+}
+
+.teams{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.team{
+    padding:10px 14px;
+    border-radius:8px;
+    min-width:160px;
+    font-weight:bold;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-content{
+    width:70%;
+    background:#0F2E63;
+    padding:40px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.question{
+    font-size:32px;
+    margin-bottom:25px;
+}
+
+.answer{
+    display:none;
+    font-size:24px;
+    color:#FFD54A;
+    margin-top:15px;
+}
+
+.team-select{
+    margin-top:25px;
+    display:none;
+}
+
+.team-select button{
+    margin:6px;
+    padding:10px 16px;
+    font-weight:bold;
+}
+
+button{
+    border:none;
+    padding:8px 14px;
+    border-radius:5px;
+    background:#FFD54A;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">JEOPARDY — Presidents & Monarchs</div>
+
+<!-- GAME BOARD -->
+<div class="board">
+
+<div class="category">DYNASTIES</div>
+<div class="category">NAME THE DATE</div>
+<div class="category">NICKNAME</div>
+<div class="category">WARS</div>
+<div class="category">FIRSTS</div>
+
+<!-- 100 -->
+<div class="cell" onclick="openQ(this,100,'Royal house founded by Henry VII after Bosworth Field.','Tudor Dynasty')">100</div>
+<div class="cell" onclick="openQ(this,100,'Year of the Declaration of Independence.','1776')">100</div>
+<div class="cell" onclick="openQ(this,100,'Honest Abe.','Abraham Lincoln')">100</div>
+<div class="cell" onclick="openQ(this,100,'War led by George Washington before presidency.','American Revolutionary War')">100</div>
+<div class="cell" onclick="openQ(this,100,'First monarch of Great Britain after 1707 union.','Queen Anne')">100</div>
+
+<!-- 200 -->
+<div class="cell" onclick="openQ(this,200,'Dynasty restored in 1660.','House of Stuart')">200</div>
+<div class="cell" onclick="openQ(this,200,'Execution year of Charles I.','1649')">200</div>
+<div class="cell" onclick="openQ(this,200,'Old Hickory.','Andrew Jackson')">200</div>
+<div class="cell" onclick="openQ(this,200,'War where Washington D.C. was burned.','War of 1812')">200</div>
+<div class="cell" onclick="openQ(this,200,'First U.S. president born after independence.','Martin Van Buren')">200</div>
+
+<!-- 300 -->
+<div class="cell" onclick="openQ(this,300,'German-origin dynasty beginning with George I.','House of Hanover')">300</div>
+<div class="cell" onclick="openQ(this,300,'Year U.S. Constitution ratified.','1788')">300</div>
+<div class="cell" onclick="openQ(this,300,'The Virgin Queen.','Elizabeth I')">300</div>
+<div class="cell" onclick="openQ(this,300,'Conflict between Royalists and Parliamentarians.','English Civil War')">300</div>
+<div class="cell" onclick="openQ(this,300,'First U.S. president to resign.','Richard Nixon')">300</div>
+
+<!-- 400 -->
+<div class="cell" onclick="openQ(this,400,'Royal house renamed in 1917.','House of Windsor')">400</div>
+<div class="cell" onclick="openQ(this,400,'Year of the Glorious Revolution.','1688')">400</div>
+<div class="cell" onclick="openQ(this,400,'Iron Lady.','Margaret Thatcher')">400</div>
+<div class="cell" onclick="openQ(this,400,'Global war led by FDR.','World War II')">400</div>
+<div class="cell" onclick="openQ(this,400,'First monarch to broadcast Christmas message.','George V')">400</div>
+
+<!-- 500 -->
+<div class="cell" onclick="openQ(this,500,'Dynasty ending with Richard III.','House of York')">500</div>
+<div class="cell" onclick="openQ(this,500,'Year Magna Carta sealed.','1215')">500</div>
+<div class="cell" onclick="openQ(this,500,'The Great Commoner.','William Pitt the Elder')">500</div>
+<div class="cell" onclick="openQ(this,500,'War ending American colonies under Britain.','American Revolutionary War')">500</div>
+<div class="cell" onclick="openQ(this,500,'First reigning British monarch to visit USA (1939).','George VI')">500</div>
+
+</div>
+
+<!-- SCOREBOARD -->
+<div class="scoreboard">
+<h3>Teams</h3>
+<div class="teams" id="teams"></div>
+<br>
+<button onclick="addTeam()">Add Team</button>
+<button onclick="removeTeam()">Remove Last Team</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+
+<div class="question" id="questionText"></div>
+
+<button onclick="reveal()">Reveal Answer</button>
+
+<div class="answer" id="answerText"></div>
+
+<div class="team-select" id="teamSelect">
+<h3>Award points:</h3>
+<div id="teamButtons"></div>
+</div>
+
+<br>
+<button onclick="closeModal()">Close</button>
+
+</div>
+</div>
+
+<script>
+
+let teams=[];
+let currentValue=0;
+
+function renderTeams(){
+    const container=document.getElementById("teams");
+    container.innerHTML="";
+    teams.forEach((t,i)=>{
+        container.innerHTML+=
+        `<div class="team" style="background:${t.color}">
+            Team ${i+1}: ${t.score}
+        </div>`;
+    });
+}
+
+function addTeam(){
+    const hue=(teams.length*70)%360;
+    teams.push({score:0,color:`hsl(${hue},70%,45%)`});
+    renderTeams();
+}
+
+function removeTeam(){
+    teams.pop();
+    renderTeams();
+}
+
+function openQ(cell,value,q,a){
+    if(cell.classList.contains("played")) return;
+
+    currentValue=value;
+
+    document.getElementById("modal").style.display="flex";
+    document.getElementById("questionText").innerText=q;
+    document.getElementById("answerText").innerText=a;
+    document.getElementById("answerText").style.display="none";
+    document.getElementById("teamSelect").style.display="none";
+
+    cell.classList.add("played");
+}
+
+function reveal(){
+    document.getElementById("answerText").style.display="block";
+
+    const div=document.getElementById("teamButtons");
+    div.innerHTML="";
+
+    teams.forEach((t,i)=>{
+        div.innerHTML+=
+        `<button onclick="award(${i})" style="background:${t.color}">
+            Team ${i+1} (+${currentValue})
+        </button>`;
+    });
+
+    document.getElementById("teamSelect").style.display="block";
+}
+
+function award(i){
+    teams[i].score+=currentValue;
+    renderTeams();
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+</script>
+
+</body>
+</html>
